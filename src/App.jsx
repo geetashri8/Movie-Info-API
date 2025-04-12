@@ -21,7 +21,7 @@ const theme = createTheme({
     MuiTextField: {
       styleOverrides: {
         root: {
-          boxShadow: '0 2px 6px rgba(0, 0, 0, 0.15)',
+          boxShadow: 'inset 0 2px 6px rgba(0, 0, 0, 0.15)',
           borderRadius: '8px',
           '& fieldset': {
             border: 'none', 
@@ -30,8 +30,11 @@ const theme = createTheme({
             WebkitBoxShadow: "0 0 0 1000px #c5d4c9 inset",
             transition: "background-color 5000s ease-in-out 0s",
           },
+          backgroundColor: '#e0f7fa', 
         },
+        
       },
+      
     
     },
     MuiPaper: {
@@ -84,7 +87,7 @@ function App() {
         <Container sx={{width:"100%",}}  disableGutters maxWidth={false}>
           <Box>
           <AppBar>
-          <Toolbar sx={{backgroundColor:"#BED7DC", width:"100%", height: '5rem', display:'flex', justifyContent: 'center'}}>
+          <Toolbar sx={{backgroundColor:"lightblue", width:"100%", height: '5rem', display:'flex', justifyContent: 'center'}}>
             
             <Stack gap={1} sx={{display:'flex', flexDirection: 'row', width:'50%'}}> 
             <TextField variant="outlined" value={text} onChange={(e)=>setText(e.target.value)}  sx={{width:"90%"}} placeholder="Search your movie here..."></TextField>
@@ -99,21 +102,52 @@ function App() {
  
         
         
-        <Box   display="flex" flexWrap="wrap" justifyContent="flex-start"  gap={3} sx={{ maxWidth: '95%', overflowX: 'hidden', mx: 'auto',paddingTop: '1rem'}}>
-          {response.map((ele)=>(
-            
-            <Card key={ele.imdbID} xs={12} sm={3} md={2}  sx={{padding:'0.5rem', borderRadius:2,width:'400px',gap: 2,  display:'flex', flexDirection:'column', justifyContent:'flex-start', transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-               '&:hover': {transform: 'scale(1.05)',boxShadow: 6, },}} >
-              <CardMedia component="img" image={ele.Poster}   sx={{ width: '100%', borderRadius: 1, objectFit: 'fill', }}/>
- 
-              <Stack sx={{}}>
-                <Typography variant="h6" sx={{fontWeight:'600', fontFamily:'fantasy'}}>Title: {ele.Title}</Typography>
-                <Typography variant="h6" sx={{fontWeight:'600'}}>Type: {ele.Type}</Typography>
-                <Typography variant="h6" sx={{fontWeight:'600'}}>Year: {ele.Year}</Typography>  
-              </Stack>            
-             
-            </Card>))}
-        </Box>
+          <Box
+            display="flex"
+            flexWrap="wrap"
+            justifyContent="center"
+            gap={2}
+            sx={{ width: '100%', bgcolor: '',paddingTop: '2rem' }}
+          >
+              {response.map((ele) => (
+                <Box key={ele.imdbID} sx={{ width: 400, }}>
+                  <Card 
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                      justifyContent: 'flex-start',
+                      padding: '0.5rem',
+                      borderRadius: 2,
+                      transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+                  
+                      '&:hover': {
+                        transform: 'scale(1.05)',
+
+                        boxShadow: 20,
+                      },
+                    }}
+                  >
+                    <CardMedia
+                      component="img"
+                      image={ele.Poster}
+                      sx={{
+                        width: '100%',
+                        height: 300,
+                        objectFit: 'fill',
+                        borderRadius: 1,
+                      }}
+                    />
+                    <Stack spacing={1} >
+                      <Typography variant="h5" fontWeight={600}>Title: {ele.Title}</Typography>
+                      <Typography variant="h6" fontWeight={600}>Type: {ele.Type}</Typography>
+                      <Typography variant="h6" fontWeight={600}>Year: {ele.Year}</Typography>
+                    </Stack>
+                  </Card>
+                </Box>
+              ))}
+           </Box>
+
         </Container>
       </ThemeProvider>
 
